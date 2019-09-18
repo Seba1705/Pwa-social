@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header'; 
@@ -8,8 +7,9 @@ import Main from './components/Main';
 import Register from './components/Register'; 
 
 export default class App extends Component {
-    static propTypes = {
-        prop: PropTypes
+    
+    state = {
+        user: null
     }
 
     render() {
@@ -18,9 +18,13 @@ export default class App extends Component {
                 <div className='container-fluid'>
                     <Header/>
                     <Switch>
-                        <Route path='/login' render={() => <Login/>} />
-                        <Route path='/main' />
-                        <Route path='/register' />
+                        <Route path='/' exact render={() => {
+                            if (this.state.user)
+                                return ( <Main/> );
+                            else
+                                return ( <Login/> );
+                        }}/>
+                        <Route path='/register' render={() => <Register/>}/> 
                     </Switch>
                 </div>
             </BrowserRouter>

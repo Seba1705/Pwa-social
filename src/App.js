@@ -4,7 +4,9 @@ import firebase from 'firebase'
 import Header from './components/Header'; 
 import Login from './components/Login'; 
 import Main from './components/Main'; 
-import Register from './components/Register'; 
+// import Register from './components/Register'; 
+import 'materialize-css/dist/css/materialize.min.css';
+import M from "materialize-css";
 
 export default class App extends Component {
     
@@ -14,19 +16,13 @@ export default class App extends Component {
 
     componentDidMount(){
         firebase.auth().onAuthStateChanged( user => {
-            // if(user)
-            //     this.setState({user});
-            // else    
-            //     this.setState({user: null});
             user ?  this.setState({user}) : this.setState({user: null});
         }); 
     }
 
     
     handleOnAuth () {
-        let name = document.querySelector('#email-login').value;
-        console.log(name);
-
+        M.toast({html : 'Login'});
     }
 
     handleLogout() {
@@ -47,7 +43,7 @@ export default class App extends Component {
                             else
                                 return ( <Login onAuth={this.handleOnAuth} /> );
                         }}/>
-                        {/* <Route path='/register' render={() => <Register/>}/>  */}
+                        
                     </Switch>
                 </div>
             </BrowserRouter>

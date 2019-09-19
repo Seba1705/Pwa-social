@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
+import firebase from 'firebase'
 import Header from './components/Header'; 
 import Login from './components/Login'; 
 import Main from './components/Main'; 
@@ -10,6 +10,27 @@ export default class App extends Component {
     
     state = {
         user: null
+    }
+
+    componentDidMount(){
+        firebase.auth().onAuthStateChanged( user => {
+            // if(user)
+            //     this.setState({user});
+            // else    
+            //     this.setState({user: null});
+            user ?  this.setState({user}) : this.setState({user: null});
+        }); 
+    }
+
+    
+    handleOnAuth () {
+        
+    }
+
+    handleLogout() {
+        firebase.auth().signOut()
+            .then(() => console.log('Te has desconenctado correctamente'))
+            .catch(() => console.error('Ha ocurrido un error'))
     }
 
     render() {
@@ -22,9 +43,9 @@ export default class App extends Component {
                             if (this.state.user)
                                 return ( <Main/> );
                             else
-                                return ( <Login/> );
+                                return ( <Login onAuth={this.handleOnAuth} /> );
                         }}/>
-                        <Route path='/register' render={() => <Register/>}/> 
+                        {/* <Route path='/register' render={() => <Register/>}/>  */}
                     </Switch>
                 </div>
             </BrowserRouter>

@@ -24,7 +24,9 @@ export default class App extends Component {
 
     
     handleOnAuth () {
-        
+        let name = document.querySelector('#email-login').value;
+        console.log(name);
+
     }
 
     handleLogout() {

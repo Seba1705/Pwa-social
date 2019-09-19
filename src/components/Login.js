@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Login = onAuth => {
+const propTypes = {
+    onAuth : PropTypes.func.isRequired
+}
+
+export default function Login({ onAuth }) {
     return (
         <div id="login-page" className="row animated fadeIn"> 
             <div className="col s12 z-depth-6 card-panel">
@@ -23,7 +27,7 @@ const Login = onAuth => {
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
-                            <a href="#" className="btn blue-effect blue darken-4 col s12" id="btn-login">Login</a>
+                            <a href="#" className="btn blue-effect blue darken-4 col s12" id="btn-login" onClick={onAuth}>Login</a>
                         </div>
                     </div>
                     <div className="row">
@@ -44,8 +48,4 @@ const Login = onAuth => {
     )
 }
 
-Login.propTypes = {
-    onAuth : PropTypes.func.isRequired
-}
-
-export default Login;
+Login.propTypes = propTypes;

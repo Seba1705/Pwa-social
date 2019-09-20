@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-
-const propTypes = {
-    username: PropTypes.string.isRequired
-}
+// const propTypes = {
+//     username: PropTypes.string.isRequired
+// }
 
 export default function Profile ({ onLogout }) {
     return (
@@ -18,4 +16,4 @@ export default function Profile ({ onLogout }) {
     )
 }
 
-Profile.propTypes = propTypes;
+// Profile.propTypes = propTypes;

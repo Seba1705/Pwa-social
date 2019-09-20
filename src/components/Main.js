@@ -6,7 +6,6 @@ import Profile from './Profile';
 const proptypes = {
     user : PropTypes.object.isRequired,
     onLogout : PropTypes.func.isRequired,
-    onRegister : PropTypes.func.isRequired
 }   
 
 export default class Main extends Component {

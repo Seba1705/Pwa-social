@@ -4,10 +4,10 @@ import firebase from 'firebase'
 import Header from './components/Header'; 
 import Login from './components/Login'; 
 import Main from './components/Main'; 
-// import Register from './components/Register'; 
+import Register from './components/Register'; 
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
-import Register from './components/Register';
+
 
 export default class App extends Component {
     
@@ -21,16 +21,18 @@ export default class App extends Component {
         }); 
     }
 
-    
     handleOnAuth () {
         let email = document.querySelector('#email-login').value,
-            pass = document.querySelector('#password-login').value;
+            pass = document.querySelector('#password-login').value,
+            regMail = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/);
 
-            // Validar campos
-            firebase.auth().signInWithEmailAndPassword(email, pass)
-                .then(()=> M.toast({html: 'Usuario logueado'}))
-                .catch(err => M.toast({html: 'Error de autenticacion'}))
-    
+            if(email === "" || email.length > 100 || !regMail.test(email) || pass.length < 6)
+                M.toast({html: 'Vericar datos'})
+            else{
+                firebase.auth().signInWithEmailAndPassword(email, pass)
+                    .then(()=> M.toast({html: 'Usuario logueado'}))
+                    .catch(err => M.toast({html: 'Error de autenticacion'}))
+            } 
     }
 
     handleLogout() {
@@ -39,10 +41,12 @@ export default class App extends Component {
             .catch(() => M.toast({html: 'Error'}))
     }
 
-    handleRegister(){
-        return (
-            <Register/>
-        )
+    renderRegister(){
+        console.log('Register');
+    }
+
+    validarEmail(email){ 
+       
     }
 
     render() {
@@ -55,9 +59,8 @@ export default class App extends Component {
                             if (this.state.user)
                                 return ( <Main user={this.state.user} onLogout={this.handleLogout} />);
                             else
-                                return ( <Login onAuth={this.handleOnAuth} onRegister={this.handleRegister}/>);
+                                return ( <Login onAuth={this.handleOnAuth} onRegister={this.renderRegister}/>);
                         }}/>
-                        
                     </Switch>
                 </div>
             </BrowserRouter>

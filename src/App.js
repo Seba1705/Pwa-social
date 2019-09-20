@@ -7,6 +7,7 @@ import Main from './components/Main';
 // import Register from './components/Register'; 
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
+import Register from './components/Register';
 
 export default class App extends Component {
     
@@ -22,13 +23,26 @@ export default class App extends Component {
 
     
     handleOnAuth () {
-        M.toast({html : 'Login'});
+        let email = document.querySelector('#email-login').value,
+            pass = document.querySelector('#password-login').value;
+
+            // Validar campos
+            firebase.auth().signInWithEmailAndPassword(email, pass)
+                .then(()=> M.toast({html: 'Usuario logueado'}))
+                .catch(err => M.toast({html: 'Error de autenticacion'}))
+    
     }
 
     handleLogout() {
         firebase.auth().signOut()
-            .then(() => console.log('Te has desconenctado correctamente'))
-            .catch(() => console.error('Ha ocurrido un error'))
+            .then(() => M.toast({html: 'Te has desconectado correctamente'}))
+            .catch(() => M.toast({html: 'Error'}))
+    }
+
+    handleRegister(){
+        return (
+            <Register/>
+        )
     }
 
     render() {
@@ -39,9 +53,9 @@ export default class App extends Component {
                     <Switch>
                         <Route path='/' exact render={() => {
                             if (this.state.user)
-                                return ( <Main/> );
+                                return ( <Main user={this.state.user} onLogout={this.handleLogout} />);
                             else
-                                return ( <Login onAuth={this.handleOnAuth} /> );
+                                return ( <Login onAuth={this.handleOnAuth} onRegister={this.handleRegister}/>);
                         }}/>
                         
                     </Switch>

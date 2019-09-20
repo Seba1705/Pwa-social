@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    onAuth : PropTypes.func.isRequired
+    onAuth : PropTypes.func.isRequired,
+    onRegister : PropTypes.func.isRequired
 }
 
-export default function Login({ onAuth }) {
+export default function Login({ onAuth, onRegister }) {
     return (
         <div id="login-page" className="row animated fadeIn"> 
             <div className="col s12 z-depth-6 card-panel">
@@ -33,7 +34,7 @@ export default function Login({ onAuth }) {
                     <div className="row">
                         <div className="input-field col s6 m6 l6">
                             <p className="margin medium-small">
-                                <a href="#" id="link-register">Register Now!</a>
+                                <a href="#" id="link-register" onClick={onRegister}>Register Now!</a>
                             </p>
                         </div>
                         <div className="input-field col s6 m6 l6">

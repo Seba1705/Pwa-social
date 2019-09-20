@@ -56,3 +56,7 @@ nav{
   }
   
   .fadeIn { animation-name: fadeIn; }
+
+  button{
+      margin: 10px !important;
+  }
